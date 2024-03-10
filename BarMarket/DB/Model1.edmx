@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище baluevDiplomModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Beverages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Type" Type="nvarchar" MaxLength="255" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="255" />
+          <Property Name="Volume" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Percent" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Supplier" Type="nvarchar" MaxLength="255" />
+          <Property Name="Price" Type="money" />
+          <Property Name="Quantity" Type="bigint" />
+          <Property Name="TimeStamp" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SellLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Action" Type="nchar" MaxLength="50" />
+          <Property Name="ProductId" Type="nchar" MaxLength="50" />
+          <Property Name="ProductName" Type="nchar" MaxLength="50" />
+          <Property Name="Quantity" Type="bigint" />
+          <Property Name="Supplier" Type="nchar" MaxLength="50" />
+          <Property Name="SellerId" Type="bigint" />
+          <Property Name="SellerName" Type="nchar" MaxLength="50" />
+          <Property Name="Timestamp" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Supplies">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="255" />
+          <Property Name="Action" Type="nvarchar" MaxLength="255" />
+          <Property Name="Beverage_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Beverage_ID" Type="bigint" />
+          <Property Name="Beverage_Type" Type="nvarchar" MaxLength="255" />
+          <Property Name="Beverage_Percent" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Beverage_Price" Type="money" />
+          <Property Name="Beverage_Volume" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Beverage_Creator" Type="nvarchar" MaxLength="255" />
+          <Property Name="Supply_ID" Type="bigint" />
+          <Property Name="Supply_Date" Type="datetime" />
+          <Property Name="Supplier" Type="nvarchar" MaxLength="255" />
+          <Property Name="Quantity" Type="bigint" />
+          <Property Name="Activated" Type="bit" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="255" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" />
+          <Property Name="Role" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityContainer Name="Хранилище baluevDiplomModelContainer">
+          <EntitySet Name="Beverages" EntityType="Self.Beverages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SellLog" EntityType="Self.SellLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplies" EntityType="Self.Supplies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="baluevDiplomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="baluevDiplomEntities4" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Beverages" EntityType="baluevDiplomModel.Beverage" />
+          <EntitySet Name="SellLogs" EntityType="baluevDiplomModel.SellLog" />
+          <EntitySet Name="Supplies" EntityType="baluevDiplomModel.Supply" />
+        </EntityContainer>
+        <EntityType Name="Beverage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Creator" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Volume" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Percent" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Supplier" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Quantity" Type="Int64" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="SellLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Action" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="ProductId" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Quantity" Type="Int64" />
+          <Property Name="Supplier" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="SellerId" Type="Int32" />
+          <Property Name="SellerName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Timestamp" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Supply">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Beverage_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Beverage_ID" Type="Int32" />
+          <Property Name="Beverage_Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Beverage_Percent" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Beverage_Creator" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Supply_ID" Type="Int32" />
+          <Property Name="Supply_Date" Type="DateTime" Precision="3" />
+          <Property Name="Supplier" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int64" />
+          <Property Name="Activated" Type="Boolean" />
+          <Property Name="Action" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Beverage_Volume" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Beverage_Price" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище baluevDiplomModelContainer" CdmEntityContainer="baluevDiplomEntities4">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="baluevDiplomModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beverages">
+            <EntityTypeMapping TypeName="baluevDiplomModel.Beverage">
+              <MappingFragment StoreEntitySet="Beverages">
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Supplier" ColumnName="Supplier" />
+                <ScalarProperty Name="Percent" ColumnName="Percent" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SellLogs">
+            <EntityTypeMapping TypeName="baluevDiplomModel.SellLog">
+              <MappingFragment StoreEntitySet="SellLog">
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="SellerName" ColumnName="SellerName" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="Supplier" ColumnName="Supplier" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplies">
+            <EntityTypeMapping TypeName="baluevDiplomModel.Supply">
+              <MappingFragment StoreEntitySet="Supplies">
+                <ScalarProperty Name="Beverage_Price" ColumnName="Beverage_Price" />
+                <ScalarProperty Name="Beverage_Volume" ColumnName="Beverage_Volume" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Activated" ColumnName="Activated" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Supplier" ColumnName="Supplier" />
+                <ScalarProperty Name="Supply_Date" ColumnName="Supply_Date" />
+                <ScalarProperty Name="Supply_ID" ColumnName="Supply_ID" />
+                <ScalarProperty Name="Beverage_Creator" ColumnName="Beverage_Creator" />
+                <ScalarProperty Name="Beverage_Percent" ColumnName="Beverage_Percent" />
+                <ScalarProperty Name="Beverage_Type" ColumnName="Beverage_Type" />
+                <ScalarProperty Name="Beverage_ID" ColumnName="Beverage_ID" />
+                <ScalarProperty Name="Beverage_Name" ColumnName="Beverage_Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
