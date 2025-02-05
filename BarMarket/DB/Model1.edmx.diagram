@@ -4,11 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e0c17ae5bf1c4a2eaf213adc7583e3ef" Name="Diagram1">
-        <EntityTypeShape EntityType="baluevDiplomModel.User" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="baluevDiplomModel.Beverage" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="baluevDiplomModel.SellLog" Width="1.5" PointX="2.75" PointY="3.75" />
-        <EntityTypeShape EntityType="baluevDiplomModel.Supply" Width="1.5" PointX="4.75" PointY="3.75" />
+      <Diagram DiagramId="e0c17ae5bf1c4a2eaf213adc7583e3ef" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="diplomModel.Category" Width="1.5" PointX="3" PointY="10.875" />
+        <EntityTypeShape EntityType="diplomModel.Notification" Width="1.5" PointX="3" PointY="13.5" />
+        <EntityTypeShape EntityType="diplomModel.OrderItem" Width="1.5" PointX="5.25" PointY="4.375" />
+        <EntityTypeShape EntityType="diplomModel.Order" Width="1.5" PointX="3" PointY="4.125" />
+        <EntityTypeShape EntityType="diplomModel.OrderStatus" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="diplomModel.Product" Width="1.5" PointX="5.25" PointY="7.875" />
+        <EntityTypeShape EntityType="diplomModel.ProductSupply" Width="1.5" PointX="7.5" PointY="11.5" />
+        <EntityTypeShape EntityType="diplomModel.Supplier" Width="1.5" PointX="3" PointY="7.625" />
+        <EntityTypeShape EntityType="diplomModel.UserRole" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="diplomModel.User" Width="1.5" PointX="0.75" PointY="7" />
+        <AssociationConnector Association="diplomModel.FK__Products__Catego__4BAC3F29" />
+        <AssociationConnector Association="diplomModel.FK__Notificat__UserI__5535A963" />
+        <AssociationConnector Association="diplomModel.FK__OrderItem__Order__5165187F" />
+        <AssociationConnector Association="diplomModel.FK__OrderItem__Produ__52593CB8" />
+        <AssociationConnector Association="diplomModel.FK__Orders__UserId__4E88ABD4" />
+        <AssociationConnector Association="diplomModel.FK_Products_Suppliers" />
+        <AssociationConnector Association="diplomModel.FK_ProductSupplies_Products" />
+        <AssociationConnector Association="diplomModel.FK_Suppliers_Users" />
+        <EntityTypeShape EntityType="diplomModel.Cart" Width="1.5" PointX="7.5" PointY="8.125" />
+        <AssociationConnector Association="diplomModel.FK__Cart__ProductId__5FB337D6" />
+        <AssociationConnector Association="diplomModel.FK__Cart__UserId__5EBF139D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

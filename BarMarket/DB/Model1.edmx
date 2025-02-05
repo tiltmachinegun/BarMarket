@@ -4,55 +4,115 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище baluevDiplomModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Beverages">
+    <Schema Namespace="matveyDiplomModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cart">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="255" />
-          <Property Name="Type" Type="nvarchar" MaxLength="255" />
-          <Property Name="Creator" Type="nvarchar" MaxLength="255" />
-          <Property Name="Volume" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="Percent" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="Supplier" Type="nvarchar" MaxLength="255" />
-          <Property Name="Price" Type="money" />
-          <Property Name="Quantity" Type="bigint" />
-          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="SellLog">
+        <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Action" Type="nchar" MaxLength="50" />
-          <Property Name="ProductId" Type="nchar" MaxLength="50" />
-          <Property Name="ProductName" Type="nchar" MaxLength="50" />
-          <Property Name="Quantity" Type="bigint" />
-          <Property Name="Supplier" Type="nchar" MaxLength="50" />
-          <Property Name="SellerId" Type="bigint" />
-          <Property Name="SellerName" Type="nchar" MaxLength="50" />
-          <Property Name="Timestamp" Type="datetime" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <EntityType Name="Supplies">
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+          <Property Name="IsRead" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderItems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="bigint" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="TotalAmount" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="DeliveryType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeliveryAddress" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="OrderStatuses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Quantity" Type="bigint" Nullable="false" />
+          <Property Name="Manufacturer" Type="nvarchar" MaxLength="255" />
+          <Property Name="Article" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="SupplierId" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductSupplies">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="255" />
-          <Property Name="Action" Type="nvarchar" MaxLength="255" />
           <Property Name="Beverage_Name" Type="nvarchar" MaxLength="255" />
-          <Property Name="Beverage_ID" Type="bigint" />
+          <Property Name="Beverage_ID" Type="int" />
           <Property Name="Beverage_Type" Type="nvarchar" MaxLength="255" />
           <Property Name="Beverage_Percent" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="Beverage_Price" Type="money" />
-          <Property Name="Beverage_Volume" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="BeverageItem_Weight" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Beverage_Creator" Type="nvarchar" MaxLength="255" />
-          <Property Name="Supply_ID" Type="bigint" />
+          <Property Name="Supply_ID" Type="int" />
           <Property Name="Supply_Date" Type="datetime" />
           <Property Name="Supplier" Type="nvarchar" MaxLength="255" />
           <Property Name="Quantity" Type="bigint" />
           <Property Name="Activated" Type="bit" />
+          <Property Name="Action" Type="nvarchar" MaxLength="255" />
+          <Property Name="Username" Type="nvarchar" MaxLength="255" />
+          <Property Name="Beverage_Volume" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Beverage_Price" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ContactInfo" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -60,66 +120,314 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Login" Type="nvarchar" MaxLength="255" />
-          <Property Name="Name" Type="nvarchar" MaxLength="255" />
           <Property Name="Password" Type="nvarchar" MaxLength="255" />
           <Property Name="Role" Type="nvarchar" MaxLength="255" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="ContactInfo" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <EntityContainer Name="Хранилище baluevDiplomModelContainer">
-          <EntitySet Name="Beverages" EntityType="Self.Beverages" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SellLog" EntityType="Self.SellLog" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Supplies" EntityType="Self.Supplies" Schema="dbo" store:Type="Tables" />
+        <Association Name="FK__Cart__ProductId__5FB337D6">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__UserId__5EBF139D">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notificat__UserI__5535A963">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderItem__Order__5165187F">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderItem__Produ__52593CB8">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__UserId__4E88ABD4">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__Catego__4BAC3F29">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSupplies_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductSupplies" Type="Self.ProductSupplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductSupplies">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Suppliers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Suppliers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="matveyDiplomModelStoreContainer">
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderItems" EntityType="Self.OrderItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderStatuses" EntityType="Self.OrderStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductSupplies" EntityType="Self.ProductSupplies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Cart__ProductId__5FB337D6" Association="Self.FK__Cart__ProductId__5FB337D6">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__UserId__5EBF139D" Association="Self.FK__Cart__UserId__5EBF139D">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notificat__UserI__5535A963" Association="Self.FK__Notificat__UserI__5535A963">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderItem__Order__5165187F" Association="Self.FK__OrderItem__Order__5165187F">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderItem__Produ__52593CB8" Association="Self.FK__OrderItem__Produ__52593CB8">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__UserId__4E88ABD4" Association="Self.FK__Orders__UserId__4E88ABD4">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__Catego__4BAC3F29" Association="Self.FK__Products__Catego__4BAC3F29">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Suppliers" Association="Self.FK_Products_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSupplies_Products" Association="Self.FK_ProductSupplies_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductSupplies" EntitySet="ProductSupplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Suppliers_Users" Association="Self.FK_Suppliers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Suppliers" EntitySet="Suppliers" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="baluevDiplomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Login" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Role" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityContainer Name="baluevDiplomEntities4" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="Beverages" EntityType="baluevDiplomModel.Beverage" />
-          <EntitySet Name="SellLogs" EntityType="baluevDiplomModel.SellLog" />
-          <EntitySet Name="Supplies" EntityType="baluevDiplomModel.Supply" />
+      <Schema Namespace="diplomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="diplom" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="diplomModel.Category" />
+          <EntitySet Name="Notifications" EntityType="diplomModel.Notification" />
+          <EntitySet Name="OrderItems" EntityType="diplomModel.OrderItem" />
+          <EntitySet Name="Orders" EntityType="diplomModel.Order" />
+          <EntitySet Name="OrderStatuses" EntityType="diplomModel.OrderStatus" />
+          <EntitySet Name="Products" EntityType="diplomModel.Product" />
+          <EntitySet Name="ProductSupplies" EntityType="diplomModel.ProductSupply" />
+          <EntitySet Name="Suppliers" EntityType="diplomModel.Supplier" />
+          <EntitySet Name="UserRoles" EntityType="diplomModel.UserRole" />
+          <EntitySet Name="Users" EntityType="diplomModel.User" />
+          <AssociationSet Name="FK__Products__Catego__4BAC3F29" Association="diplomModel.FK__Products__Catego__4BAC3F29">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notificat__UserI__5535A963" Association="diplomModel.FK__Notificat__UserI__5535A963">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderItem__Order__5165187F" Association="diplomModel.FK__OrderItem__Order__5165187F">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderItem__Produ__52593CB8" Association="diplomModel.FK__OrderItem__Produ__52593CB8">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__UserId__4E88ABD4" Association="diplomModel.FK__Orders__UserId__4E88ABD4">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Suppliers" Association="diplomModel.FK_Products_Suppliers">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSupplies_Products" Association="diplomModel.FK_ProductSupplies_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductSupply" EntitySet="ProductSupplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Suppliers_Users" Association="diplomModel.FK_Suppliers_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Supplier" EntitySet="Suppliers" />
+          </AssociationSet>
+          <EntitySet Name="Carts" EntityType="diplomModel.Cart" />
+          <AssociationSet Name="FK__Cart__ProductId__5FB337D6" Association="diplomModel.FK__Cart__ProductId__5FB337D6">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__UserId__5EBF139D" Association="diplomModel.FK__Cart__UserId__5EBF139D">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Beverage">
+        <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Creator" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Volume" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Percent" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Supplier" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Quantity" Type="Int64" />
-          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="diplomModel.FK__Products__Catego__4BAC3F29" FromRole="Category" ToRole="Product" />
         </EntityType>
-        <EntityType Name="SellLog">
+        <EntityType Name="Notification">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Action" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="ProductId" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Quantity" Type="Int64" />
-          <Property Name="Supplier" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="SellerId" Type="Int32" />
-          <Property Name="SellerName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Timestamp" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="diplomModel.FK__Notificat__UserI__5535A963" FromRole="Notification" ToRole="User" />
         </EntityType>
-        <EntityType Name="Supply">
+        <EntityType Name="OrderItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int64" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Order" Relationship="diplomModel.FK__OrderItem__Order__5165187F" FromRole="OrderItem" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="diplomModel.FK__OrderItem__Produ__52593CB8" FromRole="OrderItem" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="DeliveryType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrderItems" Relationship="diplomModel.FK__OrderItem__Order__5165187F" FromRole="Order" ToRole="OrderItem" />
+          <NavigationProperty Name="User" Relationship="diplomModel.FK__Orders__UserId__4E88ABD4" FromRole="Order" ToRole="User" />
+        </EntityType>
+        <EntityType Name="OrderStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Quantity" Type="Int64" Nullable="false" />
+          <Property Name="Manufacturer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Article" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierId" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="diplomModel.FK__Products__Catego__4BAC3F29" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="OrderItems" Relationship="diplomModel.FK__OrderItem__Produ__52593CB8" FromRole="Product" ToRole="OrderItem" />
+          <NavigationProperty Name="Supplier" Relationship="diplomModel.FK_Products_Suppliers" FromRole="Product" ToRole="Supplier" />
+          <NavigationProperty Name="ProductSupplies" Relationship="diplomModel.FK_ProductSupplies_Products" FromRole="Product" ToRole="ProductSupply" />
+          <NavigationProperty Name="Carts" Relationship="diplomModel.FK__Cart__ProductId__5FB337D6" FromRole="Product" ToRole="Cart" />
+        </EntityType>
+        <EntityType Name="ProductSupply">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -128,6 +436,7 @@
           <Property Name="Beverage_ID" Type="Int32" />
           <Property Name="Beverage_Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Beverage_Percent" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="BeverageItem_Weight" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="Beverage_Creator" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Supply_ID" Type="Int32" />
           <Property Name="Supply_Date" Type="DateTime" Precision="3" />
@@ -138,58 +447,251 @@
           <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Beverage_Volume" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="Beverage_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="diplomModel.FK_ProductSupplies_Products" FromRole="ProductSupply" ToRole="Product" />
         </EntityType>
-      </Schema>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ContactInfo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="diplomModel.FK_Products_Suppliers" FromRole="Supplier" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="diplomModel.FK_Suppliers_Users" FromRole="Supplier" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ContactInfo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Notifications" Relationship="diplomModel.FK__Notificat__UserI__5535A963" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="Orders" Relationship="diplomModel.FK__Orders__UserId__4E88ABD4" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="Suppliers" Relationship="diplomModel.FK_Suppliers_Users" FromRole="User" ToRole="Supplier" />
+          <NavigationProperty Name="Carts" Relationship="diplomModel.FK__Cart__UserId__5EBF139D" FromRole="User" ToRole="Cart" />
+        </EntityType>
+        <Association Name="FK__Products__Catego__4BAC3F29">
+          <End Type="diplomModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="diplomModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notificat__UserI__5535A963">
+          <End Type="diplomModel.User" Role="User" Multiplicity="1" />
+          <End Type="diplomModel.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderItem__Order__5165187F">
+          <End Type="diplomModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="diplomModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderItem__Produ__52593CB8">
+          <End Type="diplomModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="diplomModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__UserId__4E88ABD4">
+          <End Type="diplomModel.User" Role="User" Multiplicity="1" />
+          <End Type="diplomModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Suppliers">
+          <End Type="diplomModel.Supplier" Role="Supplier" Multiplicity="0..1" />
+          <End Type="diplomModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSupplies_Products">
+          <End Type="diplomModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="diplomModel.ProductSupply" Role="ProductSupply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductSupply">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Suppliers_Users">
+          <End Type="diplomModel.User" Role="User" Multiplicity="1" />
+          <End Type="diplomModel.Supplier" Role="Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="diplomModel.FK__Cart__ProductId__5FB337D6" FromRole="Cart" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="diplomModel.FK__Cart__UserId__5EBF139D" FromRole="Cart" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Cart__ProductId__5FB337D6">
+          <End Type="diplomModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="diplomModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__UserId__5EBF139D">
+          <End Type="diplomModel.User" Role="User" Multiplicity="1" />
+          <End Type="diplomModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище baluevDiplomModelContainer" CdmEntityContainer="baluevDiplomEntities4">
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="baluevDiplomModel.User">
-              <MappingFragment StoreEntitySet="Users">
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="matveyDiplomModelStoreContainer" CdmEntityContainer="diplom">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="diplomModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Beverages">
-            <EntityTypeMapping TypeName="baluevDiplomModel.Beverage">
-              <MappingFragment StoreEntitySet="Beverages">
-                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="diplomModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderItems">
+            <EntityTypeMapping TypeName="diplomModel.OrderItem">
+              <MappingFragment StoreEntitySet="OrderItems">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="diplomModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+                <ScalarProperty Name="DeliveryType" ColumnName="DeliveryType" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderStatuses">
+            <EntityTypeMapping TypeName="diplomModel.OrderStatus">
+              <MappingFragment StoreEntitySet="OrderStatuses">
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="diplomModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Article" ColumnName="Article" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Supplier" ColumnName="Supplier" />
-                <ScalarProperty Name="Percent" ColumnName="Percent" />
-                <ScalarProperty Name="Volume" ColumnName="Volume" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SellLogs">
-            <EntityTypeMapping TypeName="baluevDiplomModel.SellLog">
-              <MappingFragment StoreEntitySet="SellLog">
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="SellerName" ColumnName="SellerName" />
-                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
-                <ScalarProperty Name="Supplier" ColumnName="Supplier" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <EntitySetMapping Name="ProductSupplies">
+            <EntityTypeMapping TypeName="diplomModel.ProductSupply">
+              <MappingFragment StoreEntitySet="ProductSupplies">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="Action" ColumnName="Action" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Supplies">
-            <EntityTypeMapping TypeName="baluevDiplomModel.Supply">
-              <MappingFragment StoreEntitySet="Supplies">
                 <ScalarProperty Name="Beverage_Price" ColumnName="Beverage_Price" />
                 <ScalarProperty Name="Beverage_Volume" ColumnName="Beverage_Volume" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -200,6 +702,7 @@
                 <ScalarProperty Name="Supply_Date" ColumnName="Supply_Date" />
                 <ScalarProperty Name="Supply_ID" ColumnName="Supply_ID" />
                 <ScalarProperty Name="Beverage_Creator" ColumnName="Beverage_Creator" />
+                <ScalarProperty Name="BeverageItem_Weight" ColumnName="BeverageItem_Weight" />
                 <ScalarProperty Name="Beverage_Percent" ColumnName="Beverage_Percent" />
                 <ScalarProperty Name="Beverage_Type" ColumnName="Beverage_Type" />
                 <ScalarProperty Name="Beverage_ID" ColumnName="Beverage_ID" />
@@ -208,9 +711,49 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="diplomModel.Supplier">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ContactInfo" ColumnName="ContactInfo" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="diplomModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="diplomModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ContactInfo" ColumnName="ContactInfo" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="diplomModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -224,7 +767,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
       </DesignerInfoPropertySet>
     </Options>

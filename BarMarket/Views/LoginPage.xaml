@@ -1,177 +1,59 @@
 ﻿<Page x:Class="BarMarket.Views.LoginPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BarMarket.Views"
-      mc:Ignorable="d" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Title="Вход">
 
-      Title="LoginPage">
-    <Grid Background="White"
-     >
-        <Border CornerRadius="12">
-            <Border CornerRadius="10"                    
-        BorderThickness="2"
-        Opacity="0.95">
-                <Border.BorderBrush>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#1E90FF" Offset="0"/>
-                        <GradientStop Color="#fff" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.BorderBrush>
-                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <StackPanel
-                        Orientation="Vertical"
-                        Margin="0,0,0,0">
-                        <TextBlock Text="Вход"
-                           Foreground="Black"
-                           FontSize="18"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
-                           TextWrapping="Wrap"
-                           TextAlignment="Center"
-                           Margin="0,5,0,0"/>
-                        <TextBlock Text="Логин"
-                           Foreground="Black"
-                           FontSize="12"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"                             
-                           Margin="0,15,0,0"/>
-                        <TextBox x:Name="txtLogin"
-         FontSize="13"
-         FontWeight="Medium"
-         FontFamily="Montserrat"
-         CaretBrush="Black"
-         BorderBrush="Black"
-         BorderThickness="1"
-         Height="28"
-         VerticalContentAlignment="Center"
-         Margin="0,5,0,0"
-         Padding="20,0,0,0">
-                            <TextBox.Style>
-                                <Style TargetType="TextBox">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="TextBox">
-                                                <Border BorderThickness="1"
-                                BorderBrush="Black"
-                                Background="{TemplateBinding Background}"
-                                CornerRadius="0">
-                                                    <ScrollViewer x:Name="PART_ContentHost" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </TextBox.Style>
-                        </TextBox>
+    <Grid Background="{StaticResource MaterialDesignPaper}">
+        <materialDesign:Card Padding="20" Margin="50" Width="400" VerticalAlignment="Center">
+            <StackPanel>
+                <!-- Заголовок -->
+                <TextBlock Text="Вход" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           HorizontalAlignment="Center" 
+                           Margin="0,0,0,20"/>
 
-                        <TextBlock
-                           Text="Пароль"
-                           Foreground="Black"
-                           FontSize="12"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"                             
-                           Margin="0,15,0,0"/>
-                        <PasswordBox x:Name="txtPass"
-             FontSize="13"
-             FontWeight="Medium"
-             FontFamily="Montserrat"
-             BorderThickness="0,0,0,2"
-             CaretBrush="Black"
-             BorderBrush="Black"
-             Height="28"
-             VerticalContentAlignment="Center"
-             Margin="0,5,0,0"
-             Padding="20,0,0,0">
-                            <PasswordBox.Style>
-                                <Style TargetType="PasswordBox">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="PasswordBox">
-                                                <Border BorderThickness="1"
-                                BorderBrush="Black"
-                                Background="{TemplateBinding Background}"
-                                CornerRadius="0">
-                                                    <ScrollViewer x:Name="PART_ContentHost" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </PasswordBox.Style>
-                        </PasswordBox>
+                <!-- Поле для логина с иконкой -->
+                <TextBox x:Name="LoginTextBox" 
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                         materialDesign:HintAssist.Hint="Логин" 
+                         Margin="0,10,0,0"/>
 
-                        <Button x:Name="btnLogin"
-        BorderThickness="1"
-        BorderBrush="Black"
-        Content="Войти"
-        Foreground="Black"
-        FontSize="12"
-        FontFamily="Montserrat"
-        Cursor="Hand"
-        Margin="0,10,0,0"
-        Click="Login">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="White"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="White"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="150" Height="40"
-                    CornerRadius="0"
-                    BorderThickness="1"
-                    BorderBrush="Black"
-                    Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                        <Button x:Name="signUpNavigate"
-        BorderThickness="1"
-        BorderBrush="Black"
-        Content="Регистрация"
-        Foreground="White"
-        FontSize="12"
-        FontFamily="Montserrat"
-        Cursor="Hand"
-        Margin="0,10,0,0"
-        Click="SignUpNavigate">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="Black"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="Black"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="150" Height="40"
-                    CornerRadius="0"
-                    BorderThickness="1"
-                    BorderBrush="Black"
-                    Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                <!-- Поле для пароля с иконкой -->
+                <PasswordBox x:Name="PasswordBox" 
+                             Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
+                             materialDesign:HintAssist.Hint="Пароль" 
+                             Margin="0,10,0,0"/>
 
+                <!-- Кнопка входа с иконкой -->
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" 
+                        HorizontalAlignment="Stretch" 
+                        Margin="0,20,0,10" 
+                        Click="LoginButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Login" Width="16" Height="16" Margin="0,0,5,0"/>
+                        <TextBlock Text="Войти" VerticalAlignment="Center"/>
                     </StackPanel>
-                </Grid>
-            </Border>
-        </Border>
+                </Button>
+
+                <!-- Кнопка регистрации -->
+                <Button Style="{StaticResource MaterialDesignFlatButton}" 
+        HorizontalAlignment="Stretch" 
+        Margin="0,10,0,0" 
+        Click="RegisterButton_Click">
+                    <TextBlock Text="Нет аккаунта? Зарегистрируйтесь!" 
+               TextAlignment="Center" 
+               Foreground="{DynamicResource MaterialDesignBody}"/>
+                </Button>
+
+                <!-- Сообщение об ошибке (в будущем можно задействовать) -->
+                <TextBlock x:Name="ErrorMessage" 
+                           Foreground="Red" 
+                           HorizontalAlignment="Center" 
+                           Margin="0,10,0,0"
+                           TextWrapping="Wrap"/>
+            </StackPanel>
+        </materialDesign:Card>
     </Grid>
 </Page>

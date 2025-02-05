@@ -1,0 +1,122 @@
+﻿<Page x:Class="BarMarket.Views.CartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Title="Корзина">
+    <Grid Background="{StaticResource MaterialDesignPaper}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Text="Корзина" 
+                   FontSize="24" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center" 
+                   Margin="20"/>
+
+        <!-- Список товаров -->
+        <ListView x:Name="CartItemsList" 
+                  Grid.Row="1" 
+                  Margin="20" 
+                  Background="Transparent" 
+                  BorderThickness="0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="10" 
+                            Margin="0,5" 
+                            Background="{StaticResource MaterialDesignCardBackground}" 
+                            CornerRadius="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Изображение товара -->
+                            <Image Source="{Binding Product.ImageUrl}" 
+                                   Width="80" 
+                                   Height="80" 
+                                   Stretch="UniformToFill" 
+                                   Grid.Column="0" 
+                                   Margin="0,0,10,0"/>
+
+                            <!-- Информация о товаре -->
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Product.Name}" 
+                                           FontSize="16" 
+                                           FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Product.Price, StringFormat={}{0:C}}" 
+                                           Foreground="Gray"/>
+                            </StackPanel>
+
+                            <!-- Управление количеством -->
+                            <StackPanel Grid.Column="2" 
+                                        Orientation="Horizontal" 
+                                        VerticalAlignment="Center">
+                                <Button Content="-" 
+                                        Click="DecreaseQuantity_Click" 
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"/>
+                                <TextBlock Text="{Binding Quantity}" 
+                                           Margin="10,0" 
+                                           VerticalAlignment="Center"/>
+                                <Button Content="+" 
+                                        Click="IncreaseQuantity_Click" 
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"/>
+                                <Button Content="Удалить" 
+                                        Margin="10,0" 
+                                        Click="RemoveItem_Click" 
+                                        Style="{StaticResource MaterialDesignFlatButton}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Панель оформления заказа -->
+        <Border Grid.Row="2" 
+                Background="{StaticResource MaterialDesignToolBarBackground}" 
+                Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Выбор доставки -->
+                <StackPanel>
+                    <RadioButton x:Name="DeliveryRadio" 
+                                 Content="Доставка" 
+                                 GroupName="DeliveryType" 
+                                 Style="{StaticResource MaterialDesignRadioButton}"/>
+                    <RadioButton x:Name="PickupRadio" 
+                                 Content="Самовывоз" 
+                                 GroupName="DeliveryType" 
+                                 IsChecked="True" 
+                                 Style="{StaticResource MaterialDesignRadioButton}"/>
+                    <TextBox x:Name="AddressTextBox" 
+                             materialDesign:HintAssist.Hint="Адрес доставки" 
+                             Visibility="{Binding IsChecked, ElementName=DeliveryRadio, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                </StackPanel>
+
+                <!-- Итоговая сумма и кнопка оформления -->
+                <StackPanel Grid.Column="1" 
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Center">
+                    <TextBlock Text="{Binding TotalAmount, StringFormat={}Итого: {0:C}}" 
+                               FontSize="18" 
+                               Margin="0,0,0,10"/>
+                    <Button Content="Оформить заказ" 
+                            Click="Checkout_Click" 
+                            Style="{StaticResource MaterialDesignRaisedButton}" 
+                            Width="200"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

@@ -12,30 +12,32 @@ namespace BarMarket.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public Product()
         {
-            this.Notifications = new HashSet<Notification>();
-            this.Orders = new HashSet<Order>();
-            this.Suppliers = new HashSet<Supplier>();
+            this.OrderItems = new HashSet<OrderItem>();
+            this.ProductSupplies = new HashSet<ProductSupply>();
             this.Carts = new HashSet<Cart>();
         }
     
-        public int ID { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string ContactInfo { get; set; }
+        public int CategoryId { get; set; }
+        public decimal Price { get; set; }
+        public long Quantity { get; set; }
+        public string Manufacturer { get; set; }
+        public string Article { get; set; }
+        public string Description { get; set; }
+        public Nullable<int> SupplierId { get; set; }
     
+        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notification> Notifications { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual Supplier Supplier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Supplier> Suppliers { get; set; }
+        public virtual ICollection<ProductSupply> ProductSupplies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
     }

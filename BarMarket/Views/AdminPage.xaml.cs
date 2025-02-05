@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace BarMarket.Views
 {
     /// <summary>
-    /// Interaction logic for Home.xaml
+    /// Interaction logic for AdminPage.xaml
     /// </summary>
-    public partial class HomePage : Page
+    public partial class AdminPage : Page
     {
-        public HomePage()
+        public AdminPage()
         {
             InitializeComponent();
         }

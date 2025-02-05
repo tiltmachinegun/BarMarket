@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BarMarket.DB;
 
 namespace BarMarket.DB
 {
-    internal class ConnectData
+    public static class UserSession
     {
-        public static diplom db = new diplom();
+        public static User CurrentUser { get; set; }
     }
 }
